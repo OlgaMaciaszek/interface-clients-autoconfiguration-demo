@@ -8,8 +8,8 @@
 	<packaging>pom</packaging>
 	<groupId>com.example</groupId>
 	<modules>
-		<module>http-verification-client</module>
 		<module>http-verification</module>
+		<module>http-verification-client</module>
 	</modules>
 
 </project>

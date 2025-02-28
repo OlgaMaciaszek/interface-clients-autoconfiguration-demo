@@ -21,7 +21,11 @@ public class HttpVerificationClientApplication {
 	@Bean
 	public CommandLineRunner runner(PersonService service) {
 		return args -> {
-			System.err.println(service.test());
+			try {
+				System.err.println(service.test());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		};
 	}
 
