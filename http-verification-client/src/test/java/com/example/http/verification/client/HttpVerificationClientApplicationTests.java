@@ -15,7 +15,8 @@ import org.springframework.experimental.boot.server.exec.FileClasspathEntry;
 import org.springframework.experimental.boot.test.context.DynamicProperty;
 import org.springframework.experimental.boot.test.context.EnableDynamicProperty;
 
-@SpringBootTest // (properties = "spring.interface-clients.http.client-groups.verificationClient.base-url=http://localhost:${verification.server.port}")
+//@SpringBootTest //(properties = "spring.interface-clients.http.client-groups.verificationClient.base-url=http://localhost:${verification.server.port}")
+@SpringBootTest(properties = "spring.interface-client.enabled=false")
 @EnabledIf("isServerJarPresent")
 class HttpVerificationClientApplicationTests {
 
