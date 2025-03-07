@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>http-verification-client</artifactId>
+	<artifactId>http-verification-2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>http-verification-client</name>
-	<description>http-verification-client</description>
+	<name>http-verification-server-2</name>
+	<description>http-verification-2</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -21,10 +21,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
 		</dependency>
 
 		<dependency>
@@ -42,6 +38,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
 
 	<repositories>
 		<repository>

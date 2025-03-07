@@ -1,11 +1,11 @@
-package com.example.http.verification.client;
+package com.example.http.verification.server;
 
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HttpVerificationClientApplicationTests {
+class HttpVerificationApplicationTests {
 
 	@Test
 	void contextLoads() {

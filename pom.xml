@@ -10,6 +10,8 @@
 	<modules>
 		<module>http-verification</module>
 		<module>http-verification-client</module>
+		<module>http-verification-2</module>
+		<module>http-verification-3</module>
 	</modules>
 
 </project>
