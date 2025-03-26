@@ -1,16 +1,16 @@
 package com.example.http.verification.client;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.interfaceclients.http.InterfaceClientGroup;
-import org.springframework.context.annotation.Bean;
-
 import com.example.http.verification.client.clients.PersonService;
 import com.example.http.verification.client.clients.VerificationService;
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.service.registry.ImportHttpServices;
+
 @SpringBootApplication
-@InterfaceClientGroup(value = "verificationClient", httpServiceTypes = {VerificationService.class,
+@ImportHttpServices(value = "verificationClient", httpServiceTypes = {VerificationService.class,
 		PersonService.class})
 public class HttpVerificationClientApplication {
 
@@ -23,7 +23,8 @@ public class HttpVerificationClientApplication {
 		return args -> {
 			try {
 				System.err.println(service.test());
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 		};

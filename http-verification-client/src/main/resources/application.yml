@@ -4,6 +4,8 @@ spring:
   interface-clients:
     http:
       client-groups:
+        default:
+          base-url: http://localhost:9999
         verificationClient:
           base-url: http://localhost:8081
   application:
