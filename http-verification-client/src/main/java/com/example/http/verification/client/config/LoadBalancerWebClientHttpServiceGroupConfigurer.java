@@ -1,44 +1,41 @@
 package com.example.http.verification.client.config;
 
-import java.net.URI;
-
 import org.springframework.boot.autoconfigure.interfaceclients.http.HttpInterfaceGroupProperties;
 import org.springframework.boot.autoconfigure.interfaceclients.http.HttpInterfaceGroupsProperties;
-import org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor;
-import org.springframework.web.client.RestClient;
-import org.springframework.web.client.support.RestClientHttpServiceGroupConfigurer;
+import org.springframework.cloud.client.loadbalancer.reactive.DeferringLoadBalancerExchangeFilterFunction;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.support.WebClientHttpServiceGroupConfigurer;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * @author Olga Maciaszek-Sharma
  */
-public class LoadBalancerRestClientHttpServiceGroupConfigurer implements RestClientHttpServiceGroupConfigurer {
+@SuppressWarnings("rawtypes")
+public class LoadBalancerWebClientHttpServiceGroupConfigurer implements WebClientHttpServiceGroupConfigurer {
 
 	private static final String DEFAULT_SCHEME = "http";
 
-	private final DeferringLoadBalancerInterceptor deferringLoadBalancerInterceptor;
+	private final DeferringLoadBalancerExchangeFilterFunction deferringLoadBalancerExchangeFilterFunction;
 	private final HttpInterfaceGroupsProperties properties;
 
-	public LoadBalancerRestClientHttpServiceGroupConfigurer(DeferringLoadBalancerInterceptor deferringLoadBalancerInterceptor,
+	public LoadBalancerWebClientHttpServiceGroupConfigurer(DeferringLoadBalancerExchangeFilterFunction deferringLoadBalancerExchangeFilterFunction,
 			HttpInterfaceGroupsProperties properties) {
-		this.deferringLoadBalancerInterceptor = deferringLoadBalancerInterceptor;
+		this.deferringLoadBalancerExchangeFilterFunction = deferringLoadBalancerExchangeFilterFunction;
 		this.properties = properties;
 	}
 
 	@Override
-	public void configureGroups(Groups<RestClient.Builder> groups) {
+	public void configureGroups(Groups<WebClient.Builder> groups) {
 		groups.configureClient((group, builder) -> {
 			HttpInterfaceGroupProperties groupProperties = properties.getProperties(group.name());
-			URI baseUrl = baseUriComponentsBuilder(groupProperties)
+			String baseUrl = baseUriComponentsBuilder(groupProperties)
 					.host(group.name())
 					.encode()
-					.build().toUri();
+					.build().toUriString();
 			builder.baseUrl(baseUrl);
-			builder.requestInterceptor(deferringLoadBalancerInterceptor);
+			builder.filter(deferringLoadBalancerExchangeFilterFunction);
 		});
-
 	}
-
 
 	private static UriComponentsBuilder baseUriComponentsBuilder(
 			HttpInterfaceGroupProperties groupProperties) {
@@ -49,4 +46,5 @@ public class LoadBalancerRestClientHttpServiceGroupConfigurer implements RestCli
 		return UriComponentsBuilder.newInstance()
 				.scheme(DEFAULT_SCHEME);
 	}
+
 }
