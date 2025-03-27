@@ -2,6 +2,8 @@ package com.example.http.verification.client.config;
 
 import java.net.URI;
 
+import org.springframework.boot.autoconfigure.interfaceclients.http.HttpInterfaceGroupProperties;
+import org.springframework.boot.autoconfigure.interfaceclients.http.HttpInterfaceGroupsProperties;
 import org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientHttpServiceGroupConfigurer;
@@ -15,21 +17,36 @@ public class LoadBalancerRestClientHttpServiceGroupConfigurer implements RestCli
 	private static final String DEFAULT_SCHEME = "http";
 
 	private final DeferringLoadBalancerInterceptor deferringLoadBalancerInterceptor;
+	private final HttpInterfaceGroupsProperties properties;
 
-	public LoadBalancerRestClientHttpServiceGroupConfigurer(DeferringLoadBalancerInterceptor deferringLoadBalancerInterceptor) {
+	public LoadBalancerRestClientHttpServiceGroupConfigurer(DeferringLoadBalancerInterceptor deferringLoadBalancerInterceptor,
+			HttpInterfaceGroupsProperties properties) {
 		this.deferringLoadBalancerInterceptor = deferringLoadBalancerInterceptor;
+		this.properties = properties;
 	}
 
 	@Override
 	public void configureGroups(Groups<RestClient.Builder> groups) {
 		groups.configureClient((group, builder) -> {
-			URI baseUrl = UriComponentsBuilder.newInstance()
-					.scheme(DEFAULT_SCHEME)
+			HttpInterfaceGroupProperties groupProperties = properties.getProperties(group.name());
+			URI baseUrl = baseUriComponentsBuilder(groupProperties)
 					.host(group.name())
-					.build().encode().toUri();
+					.encode()
+					.build().toUri();
 			builder.baseUrl(baseUrl);
 			builder.requestInterceptor(deferringLoadBalancerInterceptor);
 		});
 
+	}
+
+
+	private static UriComponentsBuilder baseUriComponentsBuilder(
+			HttpInterfaceGroupProperties groupProperties) {
+		if (groupProperties != null && groupProperties.getBaseUrl() != null) {
+			return UriComponentsBuilder
+					.fromUriString(groupProperties.getBaseUrl());
+		}
+		return UriComponentsBuilder.newInstance()
+				.scheme(DEFAULT_SCHEME);
 	}
 }

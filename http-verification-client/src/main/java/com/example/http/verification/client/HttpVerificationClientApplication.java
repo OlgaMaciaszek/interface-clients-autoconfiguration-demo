@@ -7,9 +7,9 @@ import com.example.http.verification.client.config.LoadBalancerRestClientHttpSer
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.interfaceclients.http.HttpInterfaceGroupsProperties;
 import org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.service.registry.ImportHttpServices;
 
@@ -24,8 +24,10 @@ public class HttpVerificationClientApplication {
 
 	@Bean
 	@Order
-	LoadBalancerRestClientHttpServiceGroupConfigurer configurer(DeferringLoadBalancerInterceptor loadBalancerInterceptor) {
-		return new LoadBalancerRestClientHttpServiceGroupConfigurer(loadBalancerInterceptor);
+	LoadBalancerRestClientHttpServiceGroupConfigurer configurer(DeferringLoadBalancerInterceptor loadBalancerInterceptor,
+			HttpInterfaceGroupsProperties properties) {
+		return new LoadBalancerRestClientHttpServiceGroupConfigurer(loadBalancerInterceptor,
+				properties);
 	}
 
 	@Bean
