@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.service.registry.ImportHttpServices;
 
 @SpringBootApplication
-@ImportHttpServices(value = "verificationClient", httpServiceTypes = {VerificationService.class,
+@ImportHttpServices(group = "verificationClient", types = {VerificationService.class,
 		PersonService.class})
 public class HttpVerificationClientApplication {
 

@@ -1,6 +1,10 @@
 server:
   port: 8080
 spring:
+  http:
+    client:
+      read-timeout: 666ms
+      connect-timeout: 666ms
   interface-clients:
     http:
       client-groups:
@@ -8,5 +12,9 @@ spring:
           base-url: http://localhost:9999
         verificationClient:
           base-url: http://localhost:8081
+          read-timeout: 999ms
   application:
     name: http-verification-client
+logging:
+  level:
+    org.springframework.boot: DEBUG

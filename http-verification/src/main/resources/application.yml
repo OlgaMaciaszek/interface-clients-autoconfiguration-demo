@@ -8,3 +8,6 @@ spring:
     enabled: false
   application:
     name: http-verification
+logging:
+  level:
+    org.springframework.boot: DEBUG
