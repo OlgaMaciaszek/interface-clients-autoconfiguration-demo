@@ -1,7 +1,20 @@
 server:
   port: 8080
 spring:
+#  http:
+#    client:
+#      service:
+#        group:
+#          -verificationClient:
+#            base-url: http://verificationClient
   cloud:
+#    loadbalancer:
+#      clients:
+#        -verificationClient:
+#            interface-clients:
+#              default-scheme: https
+    #      interface-clients:
+#        default-scheme: https
     compatibility-verifier:
       enabled: false
     discovery:
@@ -10,12 +23,5 @@ spring:
           instances:
             verificationClient:
               - uri: http://localhost:8081
-#  interface-clients:
-#    http:
-#      client-groups:
-#        default:
-#          base-url: http://localhost:9999
-#        verificationClient:
-#          base-url: http://localhost:8081
   application:
     name: http-verification-client
