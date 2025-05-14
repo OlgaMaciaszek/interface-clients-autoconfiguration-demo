@@ -4,6 +4,7 @@ package com.example.http.verification.client.clients;
 import java.util.UUID;
 
 import com.example.http.verification.client.dto.Person;
+import reactor.core.publisher.Mono;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,14 +16,12 @@ import org.springframework.web.service.annotation.PostExchange;
  * @author Olga Maciaszek-Sharma
  */
 @HttpExchange("/persons")
-public interface PersonService {
+public interface PersonVerificationService {
 
 	@GetExchange("/{id}")
-	Person getPerson(@PathVariable UUID id);
+	Mono<Person> getPerson(@PathVariable UUID id);
 
 	@PostExchange
-	void add(@RequestBody Person person);
+	Mono<Void> add(@RequestBody Person person);
 
-	@GetExchange("/test")
-	String test();
 }
