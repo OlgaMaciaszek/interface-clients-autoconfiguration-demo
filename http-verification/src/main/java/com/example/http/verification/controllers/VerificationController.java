@@ -1,7 +1,5 @@
 package com.example.http.verification.controllers;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Random;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Olga Maciaszek-Sharma
@@ -101,8 +98,4 @@ public class VerificationController {
 		return "Parts: " + part1 + ", " + part2;
 	}
 
-	@PostMapping(value = "/verification/multipart", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	String postMultipart(@RequestBody MultipartFile file) throws IOException {
-		return "File: " + file.getName() + ": " + new String(file.getBytes(), Charset.defaultCharset());
-	}
 }

@@ -10,6 +10,7 @@
 	<modules>
 		<module>http-verification</module>
 		<module>http-verification-client</module>
+		<module>http-verification-client-webflux</module>
 	</modules>
 
 </project>

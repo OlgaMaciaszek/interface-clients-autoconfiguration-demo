@@ -1,20 +1,32 @@
 server:
   port: 8080
 spring:
-#  http:
-#    client:
-#      service:
-#        group:
-#          -verificationClient:
-#            base-url: http://verificationClient
+  http:
+    client:
+      service:
+        group:
+          -default:
+#            Setting RestClient-specific properties per default group
+            connect-timeout:
+              nanos: 6666
+#          Base url not set
+            default-header:
+              -test: test
+#          Per-group properties
+          -verificationClient:
+#            Setting RestClient-specific properties per group; overriding the default
+            read-timeout:
+              nanos: 9999
+#           Setting interface-clients-specific properties per group;
+#           Provided serviceId baseUrl will be used for load-balancing
+            base-url: http://verificationClient
+            default-header:
+              -test: test
+#              Setting default RestClient/Factory-specific properties for all groups
+        read-timeout: 8888ms
+        default-header:
+          -test2: test2
   cloud:
-#    loadbalancer:
-#      clients:
-#        -verificationClient:
-#            interface-clients:
-#              default-scheme: https
-    #      interface-clients:
-#        default-scheme: https
     compatibility-verifier:
       enabled: false
     discovery:
