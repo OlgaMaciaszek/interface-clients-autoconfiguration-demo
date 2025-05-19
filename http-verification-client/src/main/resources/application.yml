@@ -1,20 +1,13 @@
 server:
   port: 8080
 spring:
-#  http:
-#    client:
-#      service:
-#        group:
-#          -verificationClient:
-#            base-url: http://verificationClient
+  http:
+    client:
+      service:
+        group:
+          -verificationClient:
+            base-url: lb://verificationClient
   cloud:
-#    loadbalancer:
-#      clients:
-#        -verificationClient:
-#            interface-clients:
-#              default-scheme: https
-    #      interface-clients:
-#        default-scheme: https
     compatibility-verifier:
       enabled: false
     discovery:
