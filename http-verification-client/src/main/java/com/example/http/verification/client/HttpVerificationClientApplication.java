@@ -5,11 +5,11 @@ import com.example.http.verification.client.clients.PersonService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.interfaceclients.http.InterfaceClientGroup;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.service.registry.ImportHttpServices;
 
 @SpringBootApplication
-@InterfaceClientGroup(value = "verificationClient", basePackages = "com.example.http.verification.client.clients")
+@ImportHttpServices(group = "verificationClient", basePackages = "com.example.http.verification.client.clients")
 public class HttpVerificationClientApplication {
 
 	public static void main(String[] args) {

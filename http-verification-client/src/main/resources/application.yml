@@ -1,11 +1,12 @@
 server:
   port: 8080
 spring:
-  interface-clients:
-    http:
-      client-groups:
-        verificationClient:
-          base-url: http://localhost:8081
+  http:
+    client:
+      service:
+        group:
+          -verificationClient:
+            base-url: http://localhost:8081
   application:
     name: http-verification-client
 
