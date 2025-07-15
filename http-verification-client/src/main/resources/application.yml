@@ -8,8 +8,12 @@ spring:
           -verificationClient:
             base-url: lb://verificationClient
   cloud:
-    compatibility-verifier:
-      enabled: false
+    http:
+      client:
+        service:
+          group:
+            -verificationClient:
+              fallback-class-name: com.example.http.verification.client.fallback.VerificationClientFallbacks
     discovery:
       client:
         simple:

@@ -2,6 +2,7 @@ package com.example.http.verification.client;
 
 import com.example.http.verification.client.clients.PersonService;
 import com.example.http.verification.client.clients.VerificationService;
+import com.example.http.verification.client.dto.Person;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,7 +24,9 @@ public class HttpVerificationClientApplication {
 	public CommandLineRunner runner(PersonService service) {
 		return args -> {
 			try {
-				System.err.println(service.test());
+				service.test("test", 5);
+				System.err.println(service.test("test!!!"));
+				service.add(new Person("Kate", "Thomas", "kate.thomas@gmail.com"));
 			}
 			catch (Exception e) {
 				e.printStackTrace();

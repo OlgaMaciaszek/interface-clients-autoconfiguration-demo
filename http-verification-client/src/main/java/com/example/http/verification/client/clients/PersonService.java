@@ -25,4 +25,10 @@ public interface PersonService {
 
 	@GetExchange("/test")
 	String test();
+
+	@GetExchange("/test/{id}")
+	String test(@PathVariable String id);
+
+	@GetExchange("/{description}/{value}")
+	String test(@PathVariable String description, @PathVariable int value) ;
 }
