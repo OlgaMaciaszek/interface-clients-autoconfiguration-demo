@@ -13,7 +13,10 @@ spring:
         service:
           group:
             -verificationClient:
-              fallback-class-name: com.example.http.verification.client.fallback.VerificationClientFallbacks
+              fallback-class-names:
+#                -default: com.example.http.verification.client.fallback.VerificationClientFallbacks
+                -default: com.example.http.verification.client.fallback.EmptyFallbacks
+                -com.example.http.verification.client.clients.PersonService: com.example.http.verification.client.fallback.VerificationClientFallbacks
     discovery:
       client:
         simple:
