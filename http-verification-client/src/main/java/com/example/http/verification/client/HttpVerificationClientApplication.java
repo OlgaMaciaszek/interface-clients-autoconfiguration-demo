@@ -3,19 +3,24 @@ package com.example.http.verification.client;
 import com.example.http.verification.client.clients.PersonService;
 import com.example.http.verification.client.clients.VerificationService;
 import com.example.http.verification.client.dto.Person;
+import com.example.http.verification.client.fallback.EmptyFallbacks;
+import com.example.http.verification.client.fallback.VerificationClientFallbacks;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory;
-import org.springframework.cloud.client.circuitbreaker.Customizer;
+import org.springframework.cloud.client.circuitbreaker.httpservice.HttpServiceFallback;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.service.registry.HttpServiceGroup;
 import org.springframework.web.service.registry.ImportHttpServices;
 
+
 @SpringBootApplication
 @ImportHttpServices(group = "verificationClient", types = {VerificationService.class,
 		PersonService.class}, clientType = HttpServiceGroup.ClientType.WEB_CLIENT)
+@HttpServiceFallback(EmptyFallbacks.class)
+@HttpServiceFallback(value = VerificationClientFallbacks.class, forGroup = "verificationClient", forService = VerificationService.class)
+@HttpServiceFallback(value = VerificationClientFallbacks.class, forGroup = "verificationClient", forService = PersonService.class)
 public class HttpVerificationClientApplication {
 
 	public static void main(String[] args) {

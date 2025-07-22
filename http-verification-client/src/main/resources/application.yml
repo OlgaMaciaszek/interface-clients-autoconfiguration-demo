@@ -8,15 +8,6 @@ spring:
           -verificationClient:
             base-url: lb://verificationClient
   cloud:
-    http:
-      client:
-        service:
-          group:
-            -verificationClient:
-              fallback-class-names:
-#                -default: com.example.http.verification.client.fallback.VerificationClientFallbacks
-                -default: com.example.http.verification.client.fallback.EmptyFallbacks
-                -com.example.http.verification.client.clients.PersonService: com.example.http.verification.client.fallback.VerificationClientFallbacks
     discovery:
       client:
         simple:
